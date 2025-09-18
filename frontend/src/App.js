@@ -1113,6 +1113,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/jamaah" element={<JamaahHome />} />
             <Route path="/presensi/:kajian_id" element={<PresensiPage />} />
             <Route path="/" element={
               <ProtectedRoute>
