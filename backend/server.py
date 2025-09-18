@@ -359,7 +359,7 @@ async def get_attendance_report(kajian_id: str, current_admin: AdminResponse = D
             })
     
     return {
-        "kajian": kajian,
+        "kajian": Kajian(**kajian).dict(),
         "total_hadir": len(report_data),
         "detail_kehadiran": report_data
     }
