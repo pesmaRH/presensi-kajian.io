@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Camera, Square, Smartphone } from 'lucide-react';
+import { Camera, Square, Smartphone, QrCode } from 'lucide-react';
 
 function QRScanner({ onScan, onError }) {
   const [isScanning, setIsScanning] = useState(false);
