@@ -33,6 +33,9 @@ import {
   Smartphone
 } from "lucide-react";
 
+// Custom Components
+import QRScanner from './components/QRScanner';
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
