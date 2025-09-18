@@ -934,7 +934,49 @@ function LaporanManagement() {
   );
 }
 
-// Presensi Component (for Jamaah)
+// Jamaah Home Page with QR Scanner
+function JamaahHome() {
+  const navigate = useNavigate();
+
+  const handleQRScan = (kajianId) => {
+    navigate(`/presensi/${kajianId}`);
+  };
+
+  const handleManualInput = () => {
+    const kajianId = prompt('Masukkan kode kajian:');
+    if (kajianId) {
+      navigate(`/presensi/${kajianId}`);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-4">
+      <div className="space-y-6 w-full max-w-md">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-emerald-800 mb-2">QR Attendance RH</h1>
+          <p className="text-gray-600">Presensi Kajian</p>
+        </div>
+
+        <QRScanner 
+          onScan={handleQRScan}
+          onError={(error) => toast.error(error)}
+        />
+
+        <div className="text-center">
+          <p className="text-sm text-gray-600 mb-4">atau</p>
+          <Button 
+            variant="outline" 
+            onClick={handleManualInput}
+            className="w-full"
+          >
+            <Smartphone className="w-4 h-4 mr-2" />
+            Input Manual Kode Kajian
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
 function PresensiPage() {
   const { kajian_id } = useParams();
   const [kajian, setKajian] = useState(null);
