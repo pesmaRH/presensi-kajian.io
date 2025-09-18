@@ -374,11 +374,7 @@ async def export_attendance_csv(kajian_id: str, current_admin: AdminResponse = D
     # Get attendance data
     presensi_list = await db.presensi.find({"id_kajian": kajian_id}).to_list(1000)
     
-    # Create CSV in memory
-    output = BytesIO()
-    output.write('\ufeff'.encode('utf-8'))  # UTF-8 BOM for Excel compatibility
-    writer = csv.writer(output.getvalue().decode('utf-8'), delimiter=',')
-    
+    # Create CSV content
     csv_data = []
     csv_data.append(['No', 'Nama Jamaah', 'No HP', 'Waktu Presensi'])
     
@@ -386,18 +382,18 @@ async def export_attendance_csv(kajian_id: str, current_admin: AdminResponse = D
         jamaah = await db.jamaah.find_one({"id": presensi["id_jamaah"]})
         if jamaah:
             csv_data.append([
-                i,
+                str(i),
                 jamaah["nama"],
                 jamaah.get("hp", ""),
                 presensi["waktu_presensi"]
             ])
     
-    # Write CSV data
+    # Create CSV string
     csv_content = []
     for row in csv_data:
         csv_content.append(','.join([f'"{str(cell)}"' for cell in row]))
     
-    csv_string = '\n'.join(csv_content)
+    csv_string = '\ufeff' + '\n'.join(csv_content)  # Add BOM for Excel compatibility
     
     return StreamingResponse(
         BytesIO(csv_string.encode('utf-8')),
